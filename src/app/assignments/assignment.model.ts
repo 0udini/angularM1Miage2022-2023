@@ -1,5 +1,6 @@
-export class Assignment {
-    nom!:string;
-    dateRendu!:Date;
-    rendu!:boolean;
+export class Assignment
+{
+  nom!:string;
+  dateDeRendu!:Date;
+  rendu!:boolean;
 }
