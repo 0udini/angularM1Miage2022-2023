@@ -2,11 +2,22 @@
   <mat-card *ngIf="assignmentTransmis">
     <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
     <mat-card-subtitle>{{assignmentTransmis.dateDeRendu|date}}</mat-card-subtitle>
-
+    <div id="buttons">
     <mat-checkbox *ngIf="!assignmentTransmis.rendu"
                   (click)="onAssignmentRendu()"
     >
       Devoir rendu
     </mat-checkbox>
+    <nav>
+      <a [routerLink]="['/assignment',assignmentTransmis.id,'edit' ]">
+        <button mat-raised-button color="primary">
+          Modifier
+        </button>
+      </a>
+    </nav>
+    <button mat-icon-button (click)="onDelete()" id="button-delete">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
   </mat-card>
 </div>

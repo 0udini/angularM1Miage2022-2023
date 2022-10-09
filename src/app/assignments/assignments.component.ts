@@ -8,9 +8,9 @@ import { Assignment } from './assignment.model';
   styleUrls: ['./assignments.component.css']
 })
 export class AssignmentsComponent implements OnInit {
-  titre="Mon application sur les assignments";
+  
   formVisible=false;
-
+  visibleCard = true;
   assignments!:Assignment[];
 
   assignmentSelectionne!:Assignment;
@@ -28,14 +28,21 @@ export class AssignmentsComponent implements OnInit {
 
   onAssignmentClicke(assignment:Assignment) {
     this.assignmentSelectionne = assignment;
+    this.visibleCard=true;
   }
 
   onAddAssignmentBtnClick() {
-    this.formVisible = true;
+    //this.formVisible = true;
   }
-
+/*
   onNouvelAssignment(assignment:Assignment) {
-    this.assignments.push(assignment);
+    //this.assignments.push(assignment);
+    this.assignmentsService.addAssignment(assignment).subscribe(message =>console.log(message));
     this.formVisible = false;
+  }
+  */
+  onDeleteAssignment(assignment:Assignment) {
+    this.assignmentsService.deleteAssignment(assignment).subscribe(message =>console.log(message));
+    this.visibleCard = false;
   }
 }

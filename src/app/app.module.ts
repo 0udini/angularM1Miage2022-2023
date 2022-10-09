@@ -21,6 +21,17 @@ import { FormsModule } from '@angular/forms';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {RouterModule, Routes} from '@angular/router';
+import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
+
+const routes:Routes = [
+  {path:'',component:AssignmentsComponent},
+  {path:'home',component:AssignmentsComponent},
+  {path:'add',component:AddAssignmentComponent},
+  {path:'assignment/:id',component:AssignmentsDetailsComponent},
+  {path:'assignment/:id/edit',component:EditAssignmentComponent}
+]
 
 @NgModule({
   declarations: [
@@ -28,6 +39,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     AssignmentsComponent, AssignmentsDetailsComponent,
     RenduDirective,
     AddAssignmentComponent,
+    EditAssignmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +50,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatCardModule, MatCheckboxModule,
     FormsModule,
     MatToolbarModule,
+    MatSidenavModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]

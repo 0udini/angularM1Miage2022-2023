@@ -3,6 +3,19 @@
   flex-direction: column;
 }
 .AjouterBtn {
-  align-self: flex-end;
+  align-self: center;
+  padding: 10px;
 }
-  
+h1{
+  align-self: start;
+}
+.nonsoumis{
+  color: red;
+  background-color: antiquewhite;
+}
+
+.rendu{
+  color: rgb(19, 146, 19);
+  background-color: antiquewhite;
+
+}

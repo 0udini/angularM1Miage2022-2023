@@ -1,39 +1,47 @@
+<h1>
+  Gestion des devoirs
+</h1>
 
-
-<app-add-assignment
-  *ngIf="formVisible"
-  (nouvelAssignment)="onNouvelAssignment($event)"
->
-</app-add-assignment>
-
-<main *ngIf="!formVisible" class="container">
-  <button
-    mat-flat-button
+<main  class="container">
+  <div class="ajouterBouton">
+  <a routerLink="/add">
+  <button *ngIf="!formVisible"
+    mat-raised-button
     color="accent"
     (click)="onAddAssignmentBtnClick()"
     class="AjouterBtn"
   >
     Ajouter Assignment
   </button>
-  <h1>Liste des devoirs à rendre (assignments) :</h1>
+</a>  
+</div>
+  <h1>Liste des devoirs à rendre :</h1>
   <mat-list *ngFor="let a of assignments">
-    <h3 mat-subheader>{{ a.dateDeRendu | date }}</h3>
+    <nav><a routerLink="/assignment/{{a.id}}">
     <mat-list-item (click)="onAssignmentClicke(a)">
-      <p *ngIf="a.rendu; else nonsoumis">
+      
+      <p *ngIf="a.rendu; else nonsoumis" class="rendu">
+        Le devoir :
         {{ a.nom }}
-        rendu : {{ a.rendu }}.
+        a été rendu le :
+        {{ a.dateDeRendu | date: 'dd/MM/yyyy' }}
       </p>
       <ng-template #nonsoumis>
-        <p>
-          {{ a.nom }}, n'a pas été rendu à temps (date :
+        <p class="nonsoumis">
+          Le devoir : {{ a.nom }}, n'a pas été rendu à temps (date limite :
           {{ a.dateDeRendu | date }})
         </p>
       </ng-template>
+
       <mat-divider></mat-divider>
     </mat-list-item>
+    </a></nav>
   </mat-list>
-
-  <app-assignments-details
+<!--
+  <app-assignments-details *ngIf="visibleCard"
     [assignmentTransmis]="assignmentSelectionne"
-  ></app-assignments-details>
+    (onAssignmentSupprime)="onDeleteAssignment($event)"
+  >
+</app-assignments-details>.
+-->
 </main>
