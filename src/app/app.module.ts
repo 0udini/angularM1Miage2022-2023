@@ -13,7 +13,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { AuthGuard } from './shared/auth.guard';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { AssignmentsDetailsComponent } from './assignments/assignments-details/assignments-details.component';
 import { RenduDirective } from './shared/rendu.directive';
@@ -24,13 +24,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {RouterModule, Routes} from '@angular/router';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
+import { AssignmentsService } from './shared/assignments.service';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { AuthentificationComponent } from './assignments/authentification/authentification.component';
 
 const routes:Routes = [
   {path:'',component:AssignmentsComponent},
   {path:'home',component:AssignmentsComponent},
   {path:'add',component:AddAssignmentComponent},
   {path:'assignment/:id',component:AssignmentsDetailsComponent},
-  {path:'assignment/:id/edit',component:EditAssignmentComponent}
+  //{path:'assignment/:id/edit',component:EditAssignmentComponent},
+  {path:'assignment/:id/edit', component:EditAssignmentComponent, canActivate:[AuthGuard]},
 ]
 
 @NgModule({
@@ -40,6 +44,7 @@ const routes:Routes = [
     RenduDirective,
     AddAssignmentComponent,
     EditAssignmentComponent,
+    AuthentificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +57,7 @@ const routes:Routes = [
     MatToolbarModule,
     MatSidenavModule,
     RouterModule.forRoot(routes),
+    MatSlideToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import { Component,EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { Assignment } from '../assignment.model';
 import { ActivatedRoute, Router} from '@angular/router';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-assignments-details',
@@ -14,7 +15,8 @@ export class AssignmentsDetailsComponent implements OnInit {
   @Output() onAssignmentSupprime = new EventEmitter<Assignment>();
   constructor(private assignmentsService:AssignmentsService,
     private route: ActivatedRoute,
-    private router:Router) { }
+    private router:Router,
+    private authService:AuthService) { }
 
   
   ngOnInit(): void {
@@ -36,5 +38,8 @@ export class AssignmentsDetailsComponent implements OnInit {
     this.assignmentsService.getAssignment(id).subscribe(assignment => this.assignmentTransmis = assignment);
   }
 
+  isAdmin(){
+    return this.authService.loggedIn;
+  }
 
 }

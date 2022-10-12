@@ -1,0 +1,11 @@
+<p>
+    <mat-form-field>
+        <mat-label>Pseudo</mat-label>
+        <input matInput [(ngModel)]="pseudo" placeholder="Pseudo">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Mot de passe</mat-label>
+        <input password matInput [(ngModel)]="mdp" placeholder="Pseudo">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="onClickAuth()">Connection</button>
+</p>

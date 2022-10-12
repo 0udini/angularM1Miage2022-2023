@@ -9,8 +9,8 @@
       Devoir rendu
     </mat-checkbox>
     <nav>
-      <a [routerLink]="['/assignment',assignmentTransmis.id,'edit' ]">
-        <button mat-raised-button color="primary">
+      <a [routerLink]="isAdmin()? ['/assignment',assignmentTransmis.id,'edit' ] : null" >
+        <button mat-raised-button color="primary" [disabled]="!isAdmin()">
           Modifier
         </button>
       </a>

@@ -5,11 +5,14 @@
       </button>
       <span>Mes devoirs</span>
       <span class="example-spacer"></span>
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <div>
+      <mat-slide-toggle (click)="login()">
         <mat-icon>face</mat-icon>
-      </button>
-      
+      </mat-slide-toggle>
+    </div>  
+    <span class="second-spacer"></span>
       <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/home">
+        <mat-divider [vertical]="true"></mat-divider>
         <mat-icon>home</mat-icon>
       </button>
     </mat-toolbar>
