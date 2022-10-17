@@ -6,9 +6,10 @@
       <span>Mes devoirs</span>
       <span class="example-spacer"></span>
       <div>
-      <mat-slide-toggle (click)="login()">
+      <mat-slide-toggle (click)="logout()"  [checked]="isLoggedIn()">
         <mat-icon>face</mat-icon>
       </mat-slide-toggle>
+    
     </div>  
     <span class="second-spacer"></span>
       <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/home">
@@ -29,5 +30,6 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
+    <app-authentification></app-authentification>
   </mat-sidenav-content>
 </mat-sidenav-container>

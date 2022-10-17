@@ -27,6 +27,7 @@ import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assi
 import { AssignmentsService } from './shared/assignments.service';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { AuthentificationComponent } from './assignments/authentification/authentification.component';
+import { AuthService } from './shared/auth.service';
 
 const routes:Routes = [
   {path:'',component:AssignmentsComponent},
@@ -58,6 +59,7 @@ const routes:Routes = [
     MatSidenavModule,
     RouterModule.forRoot(routes),
     MatSlideToggleModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
