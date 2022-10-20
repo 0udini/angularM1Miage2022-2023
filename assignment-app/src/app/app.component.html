@@ -6,8 +6,9 @@
       <span>Mes devoirs</span>
       <span class="example-spacer"></span>
       <div>
-      <mat-slide-toggle (click)="logout()"  [checked]="isLoggedIn()">
-        <mat-icon>face</mat-icon>
+      <mat-slide-toggle (click)="logout()" [checked]="isLoggedIn()">
+        <div *ngIf="isLoggedIn()"> Déconnexion </div>
+        <div *ngIf="!isLoggedIn()"> Connexion </div>
       </mat-slide-toggle>
     
     </div>  
@@ -30,6 +31,5 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
-    <app-authentification></app-authentification>
   </mat-sidenav-content>
 </mat-sidenav-container>

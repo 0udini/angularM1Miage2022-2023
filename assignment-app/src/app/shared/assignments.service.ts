@@ -34,7 +34,8 @@ export class AssignmentsService {
 
   uri ="http://localhost:8010/api/assignments";
 
-  getAssignment(id:number):Observable<Assignment> {
+  getAssignment(id:string):Observable<Assignment> {
+    this.loggingService.log("ID : " + id, "récupéré");
     //return of(this.assignments.find(a => a.id === id)!);
     return this.http.get<Assignment>(this.uri + "/" + id);
   }
@@ -44,12 +45,12 @@ export class AssignmentsService {
   }
 
   addAssignment(assignment:Assignment):Observable<any> {
-    //this.assignments.push(assignment);
-    this.loggingService.log(assignment.nom, "ajouté");
+    this.assignments.push(assignment);
+    //this.loggingService.log(assignment.nom, "ajouté");
     //return of(this.assignments);
     return this.http.post<Assignment>(this.uri, assignment);
   }
-  
+
   updateAssignment(assignment:Assignment):Observable<string> {
     return of("Assignment service : assignments mis à jour");
   }

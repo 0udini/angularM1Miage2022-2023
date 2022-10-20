@@ -28,6 +28,9 @@ import { AssignmentsService } from './shared/assignments.service';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { AuthentificationComponent } from './assignments/authentification/authentification.component';
 import { AuthService } from './shared/auth.service';
+import {MatDialogModule} from '@angular/material/dialog';
+
+
 
 const routes:Routes = [
   {path:'',component:AssignmentsComponent},
@@ -46,6 +49,7 @@ const routes:Routes = [
     AddAssignmentComponent,
     EditAssignmentComponent,
     AuthentificationComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,7 @@ const routes:Routes = [
     RouterModule.forRoot(routes),
     MatSlideToggleModule,
     HttpClientModule,
-    
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

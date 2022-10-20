@@ -13,7 +13,11 @@
         <button mat-raised-button color="primary" [disabled]="!isAdmin()">
           Modifier
         </button>
+        
       </a>
+      <button mat-raised-button color="primary" (click)="getAssignment()">
+        Test
+      </button>
     </nav>
     <button mat-icon-button (click)="onDelete()" id="button-delete">
       <mat-icon>delete</mat-icon>
