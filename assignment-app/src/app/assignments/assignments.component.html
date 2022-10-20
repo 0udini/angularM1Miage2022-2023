@@ -17,7 +17,7 @@
 </div>
   <h1>Liste des devoirs à rendre :</h1>
   <mat-list *ngFor="let a of assignments">
-    <nav><a routerLink="/assignment/{{a.id}}">
+    <nav><a routerLink="/assignment/{{a._id}}">
     <mat-list-item (click)="onAssignmentClicke(a)">
       
       <p *ngIf="a.rendu; else nonsoumis" class="rendu">
