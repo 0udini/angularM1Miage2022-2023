@@ -9,24 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AssignmentsService {
   assignments:Assignment[] = [
-    {
-      _id:1,
-      nom: "Angular",
-      dateDeRendu: new Date('2022-10-10'),
-      rendu: false
-    },
-    {
-      _id:2,
-      nom: "JAVA",
-      dateDeRendu: new Date('2022-09-10'),
-      rendu: true
-    },
-    {
-      _id:3,
-      nom: "BD",
-      dateDeRendu: new Date('2022-12-01'),
-      rendu: false
-    }
+
     ];
 
   constructor(private loggingService:LoggingService,
@@ -37,6 +20,8 @@ export class AssignmentsService {
   getAssignment(id:string):Observable<Assignment> {
     this.loggingService.log("ID : " + id, "récupéré");
     //return of(this.assignments.find(a => a.id === id)!);
+    //var ObjectId = require('mongoose').Type.ObjectID;
+    //var o_id = new ObjectId(id);
     return this.http.get<Assignment>(this.uri + "/" + id);
   }
 

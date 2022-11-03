@@ -42,7 +42,8 @@ export class AssignmentsDetailsComponent implements OnInit {
    // const id = (window.location.href.slice(window.location.href.lastIndexOf('/') + 1));
    const id = this.route.snapshot.params['id']!; 
    console.log("id : "+id);
-    this.assignmentsService.getAssignment(id).subscribe(assignment => this.assignmentTransmis = assignment);
+    this.assignmentsService.getAssignment(id)
+    .subscribe(assignment => this.assignmentTransmis = assignment);
   
   }
 
