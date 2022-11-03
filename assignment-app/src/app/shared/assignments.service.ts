@@ -36,12 +36,15 @@ export class AssignmentsService {
     return this.http.post<Assignment>(this.uri, assignment);
   }
 
-  updateAssignment(assignment:Assignment):Observable<string> {
-    return of("Assignment service : assignments mis à jour");
+  updateAssignment(assignment:Assignment):Observable<any> {
+    //return of("Assignment service : assignments mis à jour");
+    return this.http.put<Assignment>(this.uri, assignment);
   }
-  deleteAssignment(assignment:Assignment):Observable<string> {
-    let pos = this.assignments.indexOf(assignment);
-    this.assignments.splice(pos,1);
-    return of("Assignment service : assignment supprimé");
+  deleteAssignment(assignment:Assignment):Observable<any> {
+    //let pos = this.assignments.indexOf(assignment);
+    //this.assignments.splice(pos,1);
+    //return of("Assignment service : assignment supprimé");
+    let deleteURI = this.uri + "/" + assignment._id;
+    return this.http.delete<Assignment>(deleteURI);
   }
 }
