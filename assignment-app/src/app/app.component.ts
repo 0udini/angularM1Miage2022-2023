@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthentificationComponent } from './assignments/authentification/authentification.component';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatDialog } from '@angular/material/dialog';
+import { AssignmentsService } from './shared/assignments.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
   title = 'Application de gestion de devoir à rendre';
   opened=false;  
   @ViewChild("myslide") myslide!: MatSlideToggle;
-  constructor(private authService:AuthService, private router:Router, public dialog: MatDialog) { }
+  constructor(private assignmentService:AssignmentsService,private authService:AuthService, private router:Router, public dialog: MatDialog) { }
   connected = this.authService.loggedIn;
 
   logout(){
@@ -43,5 +44,15 @@ export class AppComponent {
     } else {
       return "Déconnexion"
     } 
+  }
+  populate(){
+    this.assignmentService.populateDBWithForkJoin()
+    .subscribe(a=>{console.log(a);
+      console.log("POPULATE");
+      window.location.reload()});
+  }
+  reset(){
+    console.log("reset");
+    this.assignmentService.resetDB();
   }
 }

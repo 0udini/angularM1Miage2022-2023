@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Assignment } from '../assignments/assignment.model';
-import { Observable, of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
+import { bdInitialAssignments } from './data';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,72 @@ export class AssignmentsService {
     //let pos = this.assignments.indexOf(assignment);
     //this.assignments.splice(pos,1);
     //return of("Assignment service : assignment supprimé");
-    let deleteURI = this.uri + "/" + assignment._id;
-    return this.http.delete<Assignment>(deleteURI);
+    let deleteURI = this.uri + '/' + assignment._id;
+    console.log("deleteURI " + deleteURI);
+    return this.http.delete(deleteURI);
   }
+
+  populateDB(){
+    bdInitialAssignments.forEach(a =>{
+      let newAssignment = new Assignment()
+      newAssignment.nom = a.nom;
+      newAssignment.dateDeRendu = new Date(a.dateDeRendu);
+      newAssignment.rendu = a.rendu;
+    this.addAssignment(newAssignment)
+    .subscribe(response =>{console.log(response.message)
+      })
+  })
+  }
+  
+
+  populateDBWithForkJoin(): Observable<any> { 
+    const appelsVersAddAssignment:any = [];
+    bdInitialAssignments.forEach(a =>{
+      const newAssignment:any = new Assignment();
+      newAssignment.nom = a.nom;
+      newAssignment.dateDeRendu = new Date(a.dateDeRendu);
+      newAssignment.rendu = a.rendu;
+
+      appelsVersAddAssignment.push(this.addAssignment(newAssignment));
+    })
+    return forkJoin(appelsVersAddAssignment)
+  }
+
+  resetDB(){
+    console.log("resetDB ");
+    const appelsVersDeleteAssignment:any = [];
+    this.getAssignments()
+    .subscribe(aToDelete => {
+      aToDelete.forEach(a => {
+        
+        let deleteURI = this.uri + '/' + a._id;
+        console.log(deleteURI);
+        this.http.delete(deleteURI).subscribe(response => {
+          console.log(response);})
+      })
+    
+    });
+    
+  }
+
+//  resetDBWithForkJoin(): Observable<any> { { 
+//     const appelsVersDeleteAssignment:any = [];
+//     const assignmentsToDelete:Assignment[] = [];
+//     this.getAssignments().subscribe(next: assig);
+    
+    
+//   }}
+// }
+
+  // (aToDelete => {
+  //   aToDelete.forEach(a => {
+      
+  //     let deleteURI = this.uri + '/' + a._id;
+  //     console.log(deleteURI);
+  //     appelsVersDeleteAssignment.push(this.http.delete(deleteURI))
+  //   })
+  //   return forkJoin(appelsVersDeleteAssignment)
+  // });
+  
+
 }
