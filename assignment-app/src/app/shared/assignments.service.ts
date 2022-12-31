@@ -29,6 +29,9 @@ export class AssignmentsService {
   getAssignments():Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.uri);
   }
+  getAssignmentsPaginated(page:number, limit:number):Observable<any> {
+    return this.http.get<any>(this.uri + "?page=" + page + "&limit=" + limit);
+  }  
 
   addAssignment(assignment:Assignment):Observable<any> {
     this.assignments.push(assignment);
