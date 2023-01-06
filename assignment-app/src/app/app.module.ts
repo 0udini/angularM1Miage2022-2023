@@ -29,19 +29,27 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { AuthentificationComponent } from './assignments/authentification/authentification.component';
 import { AuthService } from './shared/auth.service';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import { AssignmentsTableComponent } from './assignments/assignments-table/assignments-table.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import { DashboardComponent } from './assignments/dashboard/dashboard.component';
 
 
 const routes:Routes = [
-  {path:'',component:AssignmentsComponent},
-  {path:'home',component:AssignmentsComponent},
+  {path:'',component:DashboardComponent},
+  {path:'home',component:DashboardComponent},
+  {path:'assignmentList',component:AssignmentsComponent},
   {path:'add',component:AddAssignmentComponent},
   {path:'assignment/:id',component:AssignmentsDetailsComponent},
   //{path:'assignment/:id/edit',component:EditAssignmentComponent},
   {path:'assignment/:id/edit', component:EditAssignmentComponent, canActivate:[AuthGuard]},
+
 ]
 
 @NgModule({
+
+
   declarations: [
     AppComponent,
     AssignmentsComponent, AssignmentsDetailsComponent,
@@ -49,6 +57,8 @@ const routes:Routes = [
     AddAssignmentComponent,
     EditAssignmentComponent,
     AuthentificationComponent,
+    AssignmentsTableComponent,
+    DashboardComponent,
 
   ],
   imports: [
@@ -65,6 +75,9 @@ const routes:Routes = [
     MatSlideToggleModule,
     HttpClientModule,
     MatDialogModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

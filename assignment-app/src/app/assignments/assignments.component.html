@@ -1,47 +1,19 @@
-<h1>
-  Gestion des devoirs
-</h1>
 
 <main  class="container">
   <div class="ajouterBouton">
   <a routerLink="/add">
   <button *ngIf="!formVisible"
-    mat-raised-button
-    color="accent"
+    mat-raised-button color="primary"
     (click)="onAddAssignmentBtnClick()"
     class="AjouterBtn"
   >
-    Ajouter Assignment
+    Ajouter un devoir
   </button>
 </a>  
 </div>
   <h1>Liste des devoirs à rendre :</h1>
-  <mat-list *ngFor="let a of assignments">
-    <nav><a [routerLink]="['/assignment',a._id]">
-    <mat-list-item>
-      
-      <p *ngIf="a.rendu; else nonsoumis" class="rendu">
-        Le devoir :
-        {{ a.nom }}
-        a été rendu le :
-        {{ a.dateDeRendu | date: 'dd/MM/yyyy' }}
-      </p>
-      <ng-template #nonsoumis>
-        <p class="nonsoumis">
-          Le devoir : {{ a.nom }}, n'a pas été rendu à temps (date limite :
-          {{ a.dateDeRendu | date }})
-        </p>
-      </ng-template>
-
-      <mat-divider></mat-divider>
-    </mat-list-item>
-    </a></nav>
-  </mat-list>
-<!--
-  <app-assignments-details *ngIf="visibleCard"
-    [assignmentTransmis]="assignmentSelectionne"
-    (onAssignmentSupprime)="onDeleteAssignment($event)"
-  >
-</app-assignments-details>.
--->
+  
+  <app-assignments-table></app-assignments-table>
 </main>
+
+

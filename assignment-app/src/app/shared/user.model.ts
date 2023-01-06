@@ -1,4 +1,4 @@
-export class Credential
+export class User
 {
     name!:string;
     password!:string;

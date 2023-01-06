@@ -1,43 +1,66 @@
-import { Injectable } from '@angular/core';
-import { LoggingService } from './logging.service';
-import { Credential } from './credential.model';
+import { Injectable, OnInit } from '@angular/core';
+import { User } from './user.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
- @Injectable({
+@Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  constructor(private log:LoggingService) { }
-  loggedIn = false;
+  constructor(
 
-  credentialList:Credential[] = [
-    {name:"admin", password:'admin'},
-    {name:"Garbis", password:'123456'}
-  ]
-  
-  tryToLogIn(creds:Credential){
-   
-    if (this.credentialList.some(cred => cred.name === creds.name && cred.password === creds.password)) {
-      return true;
-    } else {
-      return false;
-    }
+    private http: HttpClient
+  ) { }
+  loggedIn = false;
+  uriprefix = "http://localhost:8010/api";
+  uri = this.uriprefix + "/users";
+  currentUser!: User;
+
+  addUser(user: User) {
+    return this.http.post<User>(this.uri, user);
   }
 
-  logIn() {
-    this.loggedIn = true; 
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.uri + '/all');
+  }
+
+  getUserByName(name: String): Observable<User> {
+    return this.http.get<User>(this.uri + '/name/' + name);
+  }
+
+
+  getUserNames(): Observable<String[]> {
+    return this.http.get<String[]>(this.uriprefix + '/usernames');
+  }
+
+  getCurrentUser(): User {
+    return localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')!) : null;
+  }
+  
+  isLoggedIn() {
+    return (localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')!) : null) != null;
   }
   logOut() {
-    this.loggedIn = false;
+    localStorage.removeItem('currentUser');
+  }
+
+  loggedAdmin() {
+    return (localStorage.getItem('loggedIn') == 'true') && (localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')!).name == "admin" : false);
   }
 
   isAdmin() {
     const isUserAdmin = new Promise(
       (resolve, reject) => {
-        resolve(this.loggedIn);}
+        setTimeout(() => {
+          resolve(this.loggedAdmin());
+        }, 800);
+      }
     );
     return isUserAdmin;
-  } 
+  }
+      
 
-  
+
+
 }

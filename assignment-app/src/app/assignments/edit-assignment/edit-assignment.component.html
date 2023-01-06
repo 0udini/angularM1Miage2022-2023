@@ -1,19 +1,53 @@
-<div class="container" *ngIf="assignment">
-    <h1>Edition du devoir {{assignment.nom}}</h1>
-<form ngForm (submit)="onSaveAssignment(); formupdate.reset()" class="form" #formupdate>
-    <mat-form-field>
-      <input matInput [(ngModel)]="nomDevoir" name="nom" placeholder="Edition du nom">
+
+<mat-card>
+  <form
+    ngForm
+    (submit)="onSaveAssignment(); assignmentForm.reset()"
+    #assignmentForm
+    class="form"
+  >
+    <mat-form-field class="nomDevoir">
+      <input
+        matInput
+        [(ngModel)]="assignmentTransmis.nom"
+        name="nom"
+        placeholder="Nom du devoir"
+        required
+      />
     </mat-form-field>
-    <mat-form-field appearance="fill">
-      <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date" required>
+    <mat-form-field appearance="fill" class="date">
+      <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Date de rendu"
+        [(ngModel)]="assignmentTransmis.dateDeRendu"
+        name="date"
+        required
+      />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-  
-    <button mat-raised-button color="primary"
-      [disabled]="((!nomDevoir)||(!dateDeRendu))">
-      Sauver
-    </button>
+    <mat-form-field class="url">
+      <input
+        matInput
+        [(ngModel)]="assignmentTransmis.boiteDeRendu"
+        name="URL"
+        placeholder="URL de la boîte de dépot"
+      />
+    </mat-form-field>
+    <mat-form-field class="note">
+      <input
+        matInput
+        [(ngModel)]="assignmentTransmis.note"
+        name="note"
+        placeholder="Note"
+      />
+    </mat-form-field>
+    <mat-form-field class="remarque" >
+      <mat-label>Remarques pour le devoir</mat-label>
+      <textarea matInput [(ngModel)]="assignmentTransmis.remarque" name="remarque"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary">Sauvegarder les modifications</button>
   </form>
-</div>
-  
+</mat-card>

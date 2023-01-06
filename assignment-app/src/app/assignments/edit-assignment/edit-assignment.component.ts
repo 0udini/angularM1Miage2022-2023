@@ -9,32 +9,27 @@ import { ActivatedRoute, Router} from '@angular/router';
 })
 export class EditAssignmentComponent implements OnInit {
 
-  assignment!:Assignment| undefined;
-  nomDevoir!:string;
-  dateDeRendu!:Date;
+  assignmentTransmis!: Assignment;
+
 
   constructor(private assignmentsService:AssignmentsService,
     private route: ActivatedRoute,
     private router:Router) { }
 
   ngOnInit(): void {
-    this.getAssignment();
+      this.getAssignment();   // this.getAssignment();
   }
   getAssignment(){
     const id = this.route.snapshot.params['id']!;
     this.assignmentsService.getAssignment(id).subscribe( (assignment) => 
       { 
         if (!assignment) return;
-      this.assignment= assignment;
-      this.nomDevoir = this.assignment.nom;
-      this.dateDeRendu = this.assignment.dateDeRendu;});
+      this.assignmentTransmis = assignment;});
   }
 
   onSaveAssignment(){
-    if (!this.assignment) return;
-    this.assignment.nom = this.nomDevoir;
-    this.assignment.dateDeRendu = this.dateDeRendu;
-    this.assignmentsService.updateAssignment(this.assignment)
+    if (!this.assignmentTransmis) return;
+    this.assignmentsService.updateAssignment(this.assignmentTransmis)
       .subscribe(message =>{console.log(message)
         this.router.navigate(['/home']);
       });

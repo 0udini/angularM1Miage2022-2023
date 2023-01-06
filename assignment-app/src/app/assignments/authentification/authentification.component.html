@@ -7,5 +7,11 @@
         <mat-label>Mot de passe</mat-label>
         <input type="password" matInput [(ngModel)]="mdp" placeholder="Pseudo">
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="onClickAuth()">ConneXion</button>
-</p>
+    
+    <p *ngIf="errorMessage != '' ">
+       {{errorMessage}}
+    </p>
+
+    <button mat-raised-button color="primary" (click)="onClickAuth()">Connexion</button>
+    <button mat-button color="primary" (click)="newUser()">Inscription</button>
+

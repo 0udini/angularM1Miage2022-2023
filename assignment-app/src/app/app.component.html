@@ -3,12 +3,14 @@
       <button mat-icon-button (click)="opened=!opened" class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>Mes devoirs</span>
+      <!-- add a vertical separator -->
+      <mat-divider [vertical]="true"></mat-divider>
+      <span>Plateforme de gestion des devoirs</span>
       <span class="example-spacer"></span>
       <div>
       <mat-slide-toggle (click)="logout()" [checked]="isLoggedIn()">
-        <div *ngIf="isLoggedIn()"> Déconnexion </div>
-        <div *ngIf="!isLoggedIn()"> Connexion </div>
+        <div *ngIf="isLoggedIn()"> Se déconnecter </div>
+        <div *ngIf="!isLoggedIn()"> Se connecter </div>
       </mat-slide-toggle>
     
     </div>  
@@ -22,11 +24,21 @@
 <mat-sidenav-container>
   <mat-sidenav [(opened)]="opened" mode="side">
     <mat-nav-list>
-      <a mat-list-item href="home">Liste des devoirs</a>
+      <mat-divider [vertical]="false"></mat-divider>
+
+      
+      <a mat-list-item href="home">Page d'acceuil</a>
+      <mat-divider [vertical]="false"></mat-divider>
+
+      
+      <a mat-list-item href="assignmentList">Liste des devoirs</a>
+      <mat-divider [vertical]="false"></mat-divider>
+      <a mat-list-item href="add">Ajouter un devoir</a>
+      <mat-divider [vertical]="false"></mat-divider>
       <a mat-list-item (click)="populate()">Peupler la base de données</a>
+      <mat-divider [vertical]="false"></mat-divider>
       <a mat-list-item (click)="reset()" >Réinitialiser la base de données</a>
-      <a mat-list-item href="#">Suppression d'un devoir</a>
-      <a mat-list-item href="#">Génération de données de test</a>
+      <mat-divider [vertical]="false"></mat-divider>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

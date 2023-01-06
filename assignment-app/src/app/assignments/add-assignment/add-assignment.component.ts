@@ -14,20 +14,26 @@ export class AddAssignmentComponent implements OnInit {
   // du formulaire
   nomDevoir: string = '';
   dateDeRendu!: Date;
+  urlDevoir: string = '';
+  remarque: string = '';
+  noteDevoir!: number;
 
   constructor(private assignmentsService:AssignmentsService) {}
 
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log(this.nomDevoir + ' a rendre le ' + this.dateDeRendu);
     const newAssignment = new Assignment();
     newAssignment.nom = this.nomDevoir;
-    newAssignment.dateDeRendu = this.dateDeRendu;
+    newAssignment.dateDeRendu = new Date(this.dateDeRendu);
     newAssignment.rendu = false;
+    newAssignment.boiteDeRendu = this.urlDevoir;
+    newAssignment.remarque = this.remarque;
+    newAssignment.note = this.noteDevoir;
 
+    console.log(newAssignment);
     //this.assignments.push(newAssignment);
     //this.nouvelAssignment.emit(newAssignment);
-    this.assignmentsService.addAssignment(newAssignment).subscribe(message =>console.log(message));
+    this.assignmentsService.addAssignment(newAssignment).subscribe(response =>console.log(response.message));
   }
 }

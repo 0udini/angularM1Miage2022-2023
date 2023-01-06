@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from './shared/auth.service';
 import { Router } from '@angular/router';
 import { AuthentificationComponent } from './assignments/authentification/authentification.component';
@@ -11,15 +11,23 @@ import { AssignmentsService } from './shared/assignments.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Application de gestion de devoir à rendre';
-  opened=false;  
+  opened=true;  
   @ViewChild("myslide") myslide!: MatSlideToggle;
   constructor(private assignmentService:AssignmentsService,private authService:AuthService, private router:Router, public dialog: MatDialog) { }
   connected = this.authService.loggedIn;
+  usernames!:String[];
 
+  ngOnInit(): void {
+    this.authService.getUserNames().subscribe(
+      (data) => {
+        this.usernames = data;
+      }
+    );
+  }
   logout(){
-    if(this.authService.loggedIn){
+    if(this.authService.isLoggedIn()){
       console.log("logout");
       this.authService.logOut();
       this.router.navigate(['/home']);
@@ -35,18 +43,13 @@ export class AppComponent {
   }
 
   isLoggedIn(){
-    //console.log("Slide check : "+this.myslide.checked);
-    return this.authService.loggedIn;
+   return this.authService.isLoggedIn();
   }
-  coDeco(){
-    if(this.isLoggedIn()){
-      return "Connexion"
-    } else {
-      return "Déconnexion"
-    } 
-  }
+
+
   populate(){
-    this.assignmentService.populateDBWithForkJoin()
+    this.authService
+    this.assignmentService.populateDBWithForkJoin(this.usernames)
     .subscribe(a=>{console.log(a);
       console.log("POPULATE");
       window.location.reload()});
