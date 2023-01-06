@@ -13,7 +13,7 @@ export class AuthService {
     private http: HttpClient
   ) { }
   loggedIn = false;
-  uriprefix = "http://localhost:8010/api";
+  uriprefix = "https://api-angular.herokuapp.com/api";
   uri = this.uriprefix + "/users";
   currentUser!: User;
 

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
-
+import { AuthService } from 'src/app/shared/auth.service';
 @Component({
   selector: 'app-add-assignment',
   templateUrl: './add-assignment.component.html',
@@ -18,7 +18,9 @@ export class AddAssignmentComponent implements OnInit {
   remarque: string = '';
   noteDevoir!: number;
 
-  constructor(private assignmentsService:AssignmentsService) {}
+  constructor(private assignmentsService:AssignmentsService,
+    private authService:AuthService
+    ) {}
 
   ngOnInit(): void {}
 
@@ -35,5 +37,8 @@ export class AddAssignmentComponent implements OnInit {
     //this.assignments.push(newAssignment);
     //this.nouvelAssignment.emit(newAssignment);
     this.assignmentsService.addAssignment(newAssignment).subscribe(response =>console.log(response.message));
+  }
+  isLoggedIn(){
+    return this.authService.isLoggedIn();
   }
 }

@@ -15,7 +15,7 @@ export class AssignmentsService {
     private http: HttpClient,
     private authServive: AuthService) { }
 
-  uri = "http://localhost:8010/api/assignments";
+  uri = "https://api-angular.herokuapp.com/api/assignments";
 
   getAssignment(id: String): Observable<Assignment> {
     return this.http.get<Assignment>(this.uri + '/' + id);
