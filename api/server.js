@@ -2,12 +2,13 @@ let express = require('express');
 let app = express();
 let bodyParser = require('body-parser');
 let assignment = require('./routes/assignments');
+let user = require('./routes/userRequests');
 
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 //mongoose.set('debug', true);
 
-// remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
+// remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud
 const uri = 'mongodb+srv://Oudini:Garbis06@angularcourse.ototjcm.mongodb.net/assignments?retryWrites=true&w=majority';
 
 const options = {
@@ -43,6 +44,9 @@ let port = process.env.PORT || 8010;
 // les routes
 const prefix = '/api';
 
+app.route(prefix + '/assignments/all')
+  .get(assignment.getAllAssignments);
+
 app.route(prefix + '/assignments')
   .get(assignment.getAssignments);
 
@@ -54,6 +58,27 @@ app.route(prefix + '/assignments/:id')
 app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
   .put(assignment.updateAssignment);
+
+
+// les routes pour User
+
+app.route(prefix + '/users')
+  .get(user.getUsers);
+
+app.route(prefix + '/users/:id')
+  .get(user.getUser)
+  .delete(user.deleteUser); 
+
+app.route(prefix + '/users')
+  .post(user.postUser)
+  .put(user.updateUser);
+
+app.route(prefix + '/usernames')
+  .get(user.getUserNames);
+
+app.route(prefix + '/users/name/:name')
+  .get(user.getUserByName);
+
 
 // On démarre le serveur
 app.listen(port, "0.0.0.0");

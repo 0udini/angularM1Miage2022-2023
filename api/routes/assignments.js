@@ -13,11 +13,22 @@ let Assignment = require('../model/assignment');
 
 //Récupérer un assignment par son id (GET)
 function getAssignment(req, res){
-    let assignmentId = req.params.id;
+    console.log("GET assignment recu : " + req.params.id);
+    var mongoose = require('mongoose');
+    let assignmentId = mongoose.Types.ObjectId(req.params.id);
 
     Assignment.findOne({_id: assignmentId}, (err, assignment) =>{
         if(err){res.send(err)}
         res.json(assignment);
+    })
+}
+
+function getAllAssignments(req, res){
+    Assignment.find((err, assignments) => {
+        if(err){
+            res.send(err);
+        }
+        res.json(assignments);
     })
 }
 
@@ -37,19 +48,26 @@ function getAssignments(req, res){
 // Ajout d'un assignment (POST)
 function postAssignment(req, res){
     let assignment = new Assignment();
-    assignment.id = req.body.id;
+    var mongoose = require('mongoose');
+    assignment._id = mongoose.Types.ObjectId();
     assignment.nom = req.body.nom;
     assignment.dateDeRendu = req.body.dateDeRendu;
     assignment.rendu = req.body.rendu;
+    assignment.auteur = req.body.auteur;
+    assignment.note = req.body.note;
+    assignment.remarque = req.body.remarque;
+    assignment.boiteDeRendu = req.body.boiteDeRendu;
 
-    console.log("POST assignment reçu :");
-    console.log(assignment)
+    console.log("Ass note", assignment.note)
+    
 
     assignment.save( (err) => {
         if(err){
-            res.send('cant post assignment ', err);
+            res.status(400).send(err)
+        } else {
+            
+            res.status(200).json({ message: `${assignment.nom} saved!` });
         }
-        res.json({ message: `${assignment.nom} saved!`})
     })
 }
 
@@ -84,4 +102,4 @@ function deleteAssignment(req, res) {
 
 
 
-module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment };
+module.exports = { getAssignments, postAssignment, getAssignment, updateAssignment, deleteAssignment, getAllAssignments };

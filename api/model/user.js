@@ -1,8 +1,10 @@
+const { ObjectID } = require('mongodb');
 let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
 let UserSchema = Schema({
-    _id: Number,
-    nom: String,
+    _id: ObjectID,
+    name: String,
     password: String,
 });
 
